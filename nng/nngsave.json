@@ -319,23 +319,28 @@
     },
     {
       "lean": "theorem succ_ne_zero (a : mynat) : succ a ≠ 0 := \n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "symmetry,\r\nexact zero_ne_succ a,"
     },
     {
       "lean": "lemma add_left_eq_zero {{a b : mynat}} (H : a + b = 0) : b = 0 :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "cases b with b',\r\nrefl,\r\nrw add_succ at H,\r\nexfalso,\r\napply succ_ne_zero (a+b'),\r\nexact H,"
     },
     {
       "lean": "lemma add_right_eq_zero {a b : mynat} : a + b = 0 → a = 0 :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "intro hab,\r\nhave hb := add_left_eq_zero hab,\r\nrw hb at hab,\r\nrw add_zero at hab,\r\nexact hab,"
     },
     {
       "lean": "theorem add_one_eq_succ (d : mynat) : d + 1 = succ d :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "symmetry,\r\nexact succ_eq_add_one d,"
     },
     {
       "lean": "lemma ne_succ_self (n : mynat) : n ≠ succ n :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "intro h,\r\nrw succ_eq_add_one n at h,\r\nrw ← zero_add n at h,\r\nrw add_assoc 0 n 1 at h,\r\nrw add_comm n 1 at h,\r\nrw ← add_assoc 0 1 n at h,\r\nrw zero_add 1 at h,\r\nrw add_right_cancel_iff n 0 1 at h,\r\ncontradiction,"
     },
     {
       "lean": "theorem mul_pos (a b : mynat) : a ≠ 0 → b ≠ 0 → a * b ≠ 0 :=\n",
