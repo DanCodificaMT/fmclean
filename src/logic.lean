@@ -33,13 +33,22 @@ end
 theorem disj_comm :
   (P ∨ Q) → (Q ∨ P)  :=
 begin
-  sorry,
+  intro hor,
+  cases hor with hp hq,
+  right,
+  exact hp,
+  left,
+  exact hq,
 end
 
 theorem conj_comm :
   (P ∧ Q) → (Q ∧ P)  :=
 begin
-  sorry,
+  intro hpq,
+  cases hpq with hp hq,
+  split,
+  exact hq,
+  exact hp,
 end
 
 
