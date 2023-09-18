@@ -35,10 +35,12 @@ theorem disj_comm :
 begin
   intro hor,
   cases hor with hp hq,
-  right,
-  exact hp,
-  left,
-  exact hq,
+  --Caso hp:
+    right,
+    exact hp,
+  --Caso hq:  
+    left,
+    exact hq,
 end
 
 theorem conj_comm :
@@ -47,8 +49,10 @@ begin
   intro hpq,
   cases hpq with hp hq,
   split,
-  exact hq,
-  exact hp,
+  --Parte Q:
+    exact hq,
+  --Parte P:
+    exact hp,
 end
 
 
@@ -177,26 +181,91 @@ end
 
 theorem distr_conj_disj :
   P∧(Q∨R) → (P∧Q)∨(P∧R)  :=
-begin
-  sorry,
+begin 
+  intro hpor,
+  cases hpor with hp hor,
+  cases hor with hq hr,
+  --Caso hq:
+    left,
+    split,
+    --Parte P:
+      exact hp,
+    --Parte Q:  
+      exact hq,
+  --Caso hr:    
+    right,
+    split,
+    --Parte P:
+      exact hp,
+    --Parte R:
+      exact hr,
 end
 
 theorem distr_conj_disj_converse :
   (P∧Q)∨(P∧R) → P∧(Q∨R)  :=
 begin
-  sorry,
+  intro hor,
+  cases hor with hpq hpr,
+  --Caso hpq:
+    split,
+    --Parte P:
+      exact hpq.1,
+    --Parte Q ∨ R:
+      left,
+      exact hpq.2,
+  --Caso hpr:  
+    split,
+    --Parte P:
+      exact hpr.1,
+    --Parte Q ∨ R:  
+      right,
+      exact hpr.2,
 end
 
 theorem distr_disj_conj :
   P∨(Q∧R) → (P∨Q)∧(P∨R)  :=
 begin
-  sorry,
+  intro hor,
+  cases hor with hp hqr,
+  --Caso hp:
+    split,
+    --Parte P ∨ Q:
+      left,
+      exact hp,
+    --Parte P ∨ R:
+      left,
+      exact hp,
+  --Caso hqr:
+    split,
+    --Parte P ∨ Q:
+      right,
+      exact hqr.1,
+    --Parte P ∨ R:
+      right,
+      exact hqr.2,  
 end
 
 theorem distr_disj_conj_converse :
   (P∨Q)∧(P∨R) → P∨(Q∧R)  :=
 begin
-  sorry,
+  intro h,
+  cases h with hor hor',
+  cases hor with hp hq,
+  --Caso hp:
+    left,
+    exact hp,
+  --Caso hq:
+    cases hor' with hp hr,
+    --Caso hp:
+      left,
+      exact hp,
+    --Caso hr:
+      right,
+      split,
+      --Parte Q:
+        exact hq,
+      --Parte R: 
+        exact hr,   
 end
 
 
