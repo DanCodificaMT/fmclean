@@ -344,15 +344,18 @@
     },
     {
       "lean": "theorem mul_pos (a b : mynat) : a ≠ 0 → b ≠ 0 → a * b ≠ 0 :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "intros ha0 hb0 hab,\r\ncases a with a,\r\n  apply ha0,\r\n  refl,\r\n  cases b with b,\r\n    apply hb0,\r\n    refl,\r\n    rw succ_mul at hab,\r\n    rw add_succ at hab,\r\n    exact succ_ne_zero _ hab,"
     },
     {
       "lean": "theorem eq_zero_or_eq_zero_of_mul_eq_zero (a b : mynat) (h : a * b = 0) :\n  a = 0 ∨ b = 0 :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "cases a with a,\r\n  left,\r\n  refl,\r\n  cases b with b,\r\n    right,\r\n    refl,\r\n    right,\r\n    exfalso,\r\n    rw succ_mul at h,\r\n    rw add_succ at h,\r\n    exact succ_ne_zero _ h,"
     },
     {
       "lean": "theorem mul_eq_zero_iff (a b : mynat): a * b = 0 ↔ a = 0 ∨ b = 0 :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "split,\r\n  intro hab,\r\n  apply eq_zero_or_eq_zero_of_mul_eq_zero,\r\n  exact hab,\r\n  intro hor,\r\n  cases hor with ha hb,\r\n    rw ha,\r\n    rwa zero_mul,\r\n    rw hb,\r\n    rwa mul_zero,"
     },
     {
       "lean": "theorem mul_left_cancel (a b c : mynat) (ha : a ≠ 0) : a * b = a * c → b = c :=\n",
