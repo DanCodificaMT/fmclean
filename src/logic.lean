@@ -304,7 +304,8 @@ end
 theorem impl_refl :
   P → P  :=
 begin
-  sorry,
+  intro hp,
+  exact hp,
 end
 
 ------------------------------------------------
@@ -314,37 +315,64 @@ end
 theorem weaken_disj_right :
   P → (P∨Q)  :=
 begin
-  sorry,
+  intro hp,
+  left,
+  exact hp,
 end
 
 theorem weaken_disj_left :
   Q → (P∨Q)  :=
 begin
-  sorry,
+  intro hq,
+  right,
+  exact hq,
 end
 
 theorem weaken_conj_right :
   (P∧Q) → P  :=
 begin
-  sorry,
+  intro hpq,
+  exact hpq.1,
 end
 
 theorem weaken_conj_left :
   (P∧Q) → Q  :=
 begin
-  sorry,
+  intro hpq,
+  exact hpq.2
 end
 
 theorem conj_idempot :
   (P∧P) ↔ P :=
 begin
-  sorry,
+  split,
+  --Parte (P∧P) → P
+    intro hpp,
+    exact hpp.1,
+  --Parte P → (P∧P)
+    intro hp,
+    split,
+      --Parte P:
+      exact hp,
+      --Parte P':
+      exact  hp,
 end
 
 theorem disj_idempot :
   (P∨P) ↔ P  :=
 begin
-  sorry,
+  split,
+  --Parte (P∨P) → P
+    intro hor,
+    cases hor with hp hp',
+    --Caso hp:
+      exact hp,
+    --Caso hp',
+      exact hp',
+  --Parte P → (P∨P)
+    intro hp,
+    left,
+    exact hp,
 end
 
 end propositional
