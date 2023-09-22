@@ -364,39 +364,47 @@
     },
     {
       "lean": "lemma one_add_le_self (x : mynat) : x ≤ 1 + x :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "--rw le_iff_exists_add,\r\nuse 1,\r\nexact add_comm 1 x,"
     },
     {
       "lean": "lemma le_refl (x : mynat) : x ≤ x :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "use 0,\r\nrefl,"
     },
     {
       "lean": "theorem le_succ (a b : mynat) : a ≤ b → a ≤ (succ b) :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "intro h,\r\ncases h with c hc,\r\nrw hc,\r\nuse succ c,\r\nrefl,"
     },
     {
       "lean": "lemma zero_le (a : mynat) : 0 ≤ a :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "use a,\r\nrw zero_add a,\r\nrefl,"
     },
     {
       "lean": "theorem le_trans (a b c : mynat) (hab : a ≤ b) (hbc : b ≤ c) : a ≤ c :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "cases hab with x hx,\r\ncases hbc with y hy,\r\nrw hx at hy,\r\nuse x + y,\r\nrw ← add_assoc a x y,\r\nexact hy,"
     },
     {
       "lean": "theorem le_antisymm (a b : mynat) (hab : a ≤ b) (hba : b ≤ a) : a = b :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "cases hab with x hx,\r\ncases hba with y hy,\r\nrw hy at hx,\r\nrw add_assoc b y x at hx,\r\nsymmetry at hx,\r\nhave hxy := eq_zero_of_add_right_eq_self hx,\r\nhave hy0 := add_right_eq_zero hxy,\r\nrw hy,\r\nrw hy0,\r\nrefl,"
     },
     {
       "lean": "lemma le_zero (a : mynat) (h : a ≤ 0) : a = 0 :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "cases h with z hz,\r\nsymmetry at hz,\r\nhave ha := add_right_eq_zero hz,\r\nexact ha,"
     },
     {
       "lean": "lemma succ_le_succ (a b : mynat) (h : a ≤ b) : succ a ≤ succ b :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "cases h with x hx,\r\nuse x,\r\nrw succ_add,\r\nrw succ_eq_succ_iff,\r\nexact hx,"
     },
     {
       "lean": "theorem le_total (a b : mynat) : a ≤ b ∨ b ≤ a :=\n",
-      "editorText": "sorry"
+      "editorText": ""
     },
     {
       "lean": "lemma le_succ_self (a : mynat) : a ≤ succ a :=\n",
