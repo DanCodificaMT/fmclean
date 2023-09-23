@@ -110,19 +110,36 @@ end
 theorem impl_as_contrapositive :
   (P → Q) → (¬Q → ¬P)  :=
 begin
-  sorry,
+  intro hpq,
+  intro hqf,
+  intro hp,
+  apply hqf,
+  exact hpq hp,
 end
 
 theorem impl_as_contrapositive_converse :
   (¬Q → ¬P) → (P → Q)  :=
 begin
-  sorry,
+  intro hqp,
+  intro hp,
+  by_cases hq : Q,
+  --Caso Q:
+    exact hq,
+  --Caso ¬Q:
+    have hpf := hqp hq,
+    exfalso,
+    apply hpf,
+    exact hp,
 end
 
 theorem contrapositive_law :
   (P → Q) ↔ (¬Q → ¬P)  :=
 begin
-  sorry,
+  split,
+  --Parte (P → Q) → ¬Q → ¬P:
+    exact impl_as_contrapositive P Q,
+  --Parte (¬Q → ¬P) → P → Q
+    exact impl_as_contrapositive_converse P Q,
 end
 
 
@@ -133,7 +150,17 @@ end
 theorem lem_irrefutable :
   ¬¬(P∨¬P)  :=
 begin
-  sorry,
+  intro h,
+  have hor : P ∨ ¬P,
+  by_cases hp : P,
+  --Caso P:
+    left,
+    exact hp,
+  --Caso ¬P:
+    right,
+    exact hp,
+  apply h,
+  exact hor,
 end
 
 
@@ -144,7 +171,14 @@ end
 theorem peirce_law_weak :
   ((P → Q) → P) → ¬¬P  :=
 begin
-  sorry,
+  intro h,
+  intro hpf,
+  apply hpf,
+  apply h,
+  intro hp,
+  exfalso,
+  apply hpf,
+  exact hp,
 end
 
 
