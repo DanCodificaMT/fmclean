@@ -189,13 +189,29 @@ end
 theorem disj_as_negconj :
   P∨Q → ¬(¬P∧¬Q)  :=
 begin
-  sorry,
+  intro hor,
+  intro hpq,
+  cases hor with hp hq,
+  --Caso hp:
+    apply hpq.1,
+    exact hp,
+  --Caso hq:
+    apply hpq.2,
+    exact hq,
 end
 
 theorem conj_as_negdisj :
   P∧Q → ¬(¬P∨¬Q)  :=
 begin
-  sorry,
+  intro hpq,
+  intro hor,
+  cases hor with hpf hqf,
+  --Caso hpf:
+    apply hpf,
+    exact hpq.1,
+  --Caso hqf:
+    apply hqf,
+    exact hpq.2,
 end
 
 
@@ -206,37 +222,91 @@ end
 theorem demorgan_disj :
   ¬(P∨Q) → (¬P ∧ ¬Q)  :=
 begin
-  sorry,
+  intro hor,
+  split,
+  --Parte ¬P:
+    intro hp,
+    have hor' : P ∨ Q,
+    left,
+    exact hp,
+    apply hor,
+    exact hor',
+  --Parte ¬Q:
+    intro hq,
+    have hor' : P ∨ Q,
+    right,
+    exact hq,
+    apply hor,
+    exact hor',
 end
 
 theorem demorgan_disj_converse :
   (¬P ∧ ¬Q) → ¬(P∨Q)  :=
 begin
-  sorry,
+  intro hpq,
+  intro hor,
+  cases hor with hp hq,
+  --Caso hp:
+    apply hpq.1,
+    exact hp,
+  --Caso hq:
+    apply hpq.2,
+    exact hq,
 end
 
 theorem demorgan_conj :
   ¬(P∧Q) → (¬Q ∨ ¬P)  :=
 begin
-  sorry,
+  intro hpq,
+  by_cases hp : P,
+  --Caso P:
+    left,
+    intro hq,
+    have hpq' : P ∧ Q,
+    split,
+    --Parte P:
+      exact hp,
+    --Parte Q:
+      exact hq,
+    apply hpq,
+    exact hpq',
+  --Caso ¬P:
+    right,
+    exact hp,
 end
 
 theorem demorgan_conj_converse :
   (¬Q ∨ ¬P) → ¬(P∧Q)  :=
 begin
-  sorry,
+  intro hor,
+  intro hpq,
+  cases hor with hq hp,
+  --Caso hq:
+    apply hq,
+    exact hpq.2,
+  --Caso hp:
+    apply hp,
+    exact hpq.1,
 end
 
 theorem demorgan_conj_law :
   ¬(P∧Q) ↔ (¬Q ∨ ¬P)  :=
 begin
-  sorry,
+  split,
+  --Parte ¬(P ∧ Q) → ¬Q ∨ ¬P
+    exact demorgan_conj P Q,
+  --Parte ¬Q ∨ ¬P → ¬(P ∧ Q)
+    exact demorgan_conj_converse P Q,
 end
 
 theorem demorgan_disj_law :
   ¬(P∨Q) ↔ (¬P ∧ ¬Q)  :=
 begin
-  sorry,
+  split,
+  --Parte ¬(P ∨ Q) → ¬P ∧ ¬Q
+    exact demorgan_disj P Q,
+  --Parte ¬P ∧ ¬Q → ¬(P ∨ Q)
+    exact demorgan_disj_converse P Q,
 end
 
 ------------------------------------------------
