@@ -138,7 +138,7 @@ begin
   split,
   --Parte (P → Q) → ¬Q → ¬P:
     exact impl_as_contrapositive P Q,
-  --Parte (¬Q → ¬P) → P → Q
+  --Parte (¬Q → ¬P) → P → Q:
     exact impl_as_contrapositive_converse P Q,
 end
 
@@ -293,9 +293,9 @@ theorem demorgan_conj_law :
   ¬(P∧Q) ↔ (¬Q ∨ ¬P)  :=
 begin
   split,
-  --Parte ¬(P ∧ Q) → ¬Q ∨ ¬P
+  --Parte ¬(P ∧ Q) → ¬Q ∨ ¬P:
     exact demorgan_conj P Q,
-  --Parte ¬Q ∨ ¬P → ¬(P ∧ Q)
+  --Parte ¬Q ∨ ¬P → ¬(P ∧ Q):
     exact demorgan_conj_converse P Q,
 end
 
@@ -303,9 +303,9 @@ theorem demorgan_disj_law :
   ¬(P∨Q) ↔ (¬P ∧ ¬Q)  :=
 begin
   split,
-  --Parte ¬(P ∨ Q) → ¬P ∧ ¬Q
+  --Parte ¬(P ∨ Q) → ¬P ∧ ¬Q:
     exact demorgan_disj P Q,
-  --Parte ¬P ∧ ¬Q → ¬(P ∨ Q)
+  --Parte ¬P ∧ ¬Q → ¬(P ∨ Q):
     exact demorgan_disj_converse P Q,
 end
 
@@ -480,10 +480,10 @@ theorem conj_idempot :
   (P∧P) ↔ P :=
 begin
   split,
-  --Parte (P∧P) → P
+  --Parte (P∧P) → P:
     intro hpp,
     exact hpp.1,
-  --Parte P → (P∧P)
+  --Parte P → (P∧P):
     intro hp,
     split,
       --Parte P:
@@ -496,14 +496,14 @@ theorem disj_idempot :
   (P∨P) ↔ P  :=
 begin
   split,
-  --Parte (P∨P) → P
+  --Parte (P∨P) → P:
     intro hor,
     cases hor with hp hp',
     --Caso hp:
       exact hp,
-    --Caso hp',
+    --Caso hp':
       exact hp',
-  --Parte P → (P∨P)
+  --Parte P → (P∨P):
     intro hp,
     left,
     exact hp,
@@ -528,13 +528,25 @@ variables P Q : U -> Prop
 theorem demorgan_exists :
   ¬(∃x, P x) → (∀x, ¬P x)  :=
 begin
-  sorry,
+  intro hef,
+  intro x,
+  intro hpx,
+  have he : ∃x, P x,
+  existsi x,
+  exact hpx,
+  apply hef,
+  exact he,
 end
 
 theorem demorgan_exists_converse :
   (∀x, ¬P x) → ¬(∃x, P x)  :=
 begin
-  sorry,
+  intro h,
+  intro he,
+  cases he with x hx,
+  have hxf := h x,
+  apply hxf,
+  exact hx,
 end
 
 theorem demorgan_forall :
@@ -546,19 +558,32 @@ end
 theorem demorgan_forall_converse :
   (∃x, ¬P x) → ¬(∀x, P x)  :=
 begin
-  sorry,
+  intro he,
+  intro h,
+  cases he with x hxf,
+  have hx := h x,
+  apply hxf,
+  exact hx,
 end
 
 theorem demorgan_forall_law :
   ¬(∀x, P x) ↔ (∃x, ¬P x)  :=
 begin
-  sorry,
+  split,
+  --(¬(∀x, P x)) → (∃x, ¬P x):
+    exact demorgan_forall U P,
+  --Parte (∃x, ¬P x) → (¬(∀x, P x)):
+    exact demorgan_forall_converse U P,
 end
 
 theorem demorgan_exists_law :
   ¬(∃x, P x) ↔ (∀x, ¬P x)  :=
 begin
-  sorry,
+  split,
+  --Parte (¬(∃x, P x)) → (∀x, ¬P x):
+    exact demorgan_exists U P,
+  --Parte (∀x, ¬P x) → (¬(∃x, P x)):
+    exact demorgan_exists_converse U P,
 end
 
 
@@ -569,19 +594,30 @@ end
 theorem exists_as_neg_forall :
   (∃x, P x) → ¬(∀x, ¬P x)  :=
 begin
-  sorry,
+  intro he,
+  intro h,
+  apply demorgan_exists_converse U P h,
+  exact he,
 end
 
 theorem forall_as_neg_exists :
   (∀x, P x) → ¬(∃x, ¬P x)  :=
 begin
-  sorry,
+  intro h,
+  intro he,
+  apply demorgan_forall_converse U P he,
+  exact h,
 end
 
 theorem forall_as_neg_exists_converse :
   ¬(∃x, ¬P x) → (∀x, P x)  :=
 begin
-  sorry,
+  intro hef,
+  intro x,
+  by_contradiction hxf,
+  apply hef,
+  existsi x,
+  exact hxf,
 end
 
 theorem exists_as_neg_forall_converse :
@@ -593,13 +629,21 @@ end
 theorem forall_as_neg_exists_law :
   (∀x, P x) ↔ ¬(∃x, ¬P x)  :=
 begin
-  sorry,
+  split,
+  --Parte (∀x, P x) → (¬(∃x, ¬P x)):
+    exact forall_as_neg_exists U P,
+  --Parte (¬(∃x, ¬P x)) → (∀x, P x):
+    exact forall_as_neg_exists_converse U P,
 end
 
 theorem exists_as_neg_forall_law :
   (∃x, P x) ↔ ¬(∀x, ¬P x)  :=
 begin
-  sorry,
+  split,
+  --Parte (∃x, P x) → (¬(∀x, ¬P x)):
+    exact exists_as_neg_forall U P,
+  --Parte (¬(∀x, ¬P x)) → (∃x, P x):
+    exact exists_as_neg_forall_converse U P,
 end
 
 
