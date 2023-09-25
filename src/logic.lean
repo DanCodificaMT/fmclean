@@ -661,38 +661,90 @@ end
 theorem exists_conj_as_conj_exists :
   (∃x, P x ∧ Q x) → (∃x, P x) ∧ (∃x, Q x)  :=
 begin
-  sorry,
+  intro he,
+  cases he with x hpq,
+  split,
+  --Parte ∃x, P x:
+    existsi x,
+    exact hpq.1,
+  --Parte ∃x, Q x:
+    existsi x,
+    exact hpq.2,
 end
 
 theorem exists_disj_as_disj_exists :
   (∃x, P x ∨ Q x) → (∃x, P x) ∨ (∃x, Q x)  :=
 begin
-  sorry,
+  intro he,
+  cases he with x hor,
+  cases hor with hp hq,
+  --Caso hp:
+    left,
+    existsi x,
+    exact hp,
+  --Caso hq:
+    right,
+    existsi x,
+    exact hq,
 end
 
 theorem exists_disj_as_disj_exists_converse :
   (∃x, P x) ∨ (∃x, Q x) → (∃x, P x ∨ Q x)  :=
 begin
-  sorry,
+  intro hor,
+  cases hor with hep heq,
+  --Caso hep:
+    cases hep with x hp,
+    existsi x,
+    left,
+    exact hp,
+  --Caso heq:
+    cases heq with x hq,
+    existsi x,
+    right,
+    exact hq,
 end
 
 theorem forall_conj_as_conj_forall :
   (∀x, P x ∧ Q x) → (∀x, P x) ∧ (∀x, Q x)  :=
 begin
-  sorry,
+  intro h,
+  split,
+  --Parte ∀x, P x:
+    intro x,
+    have hpq := h x,
+    exact hpq.1,
+  --Parte ∀x, Q x:
+    intro x,
+    have hpq := h x,
+    exact hpq.2,
 end
 
 theorem forall_conj_as_conj_forall_converse :
   (∀x, P x) ∧ (∀x, Q x) → (∀x, P x ∧ Q x)  :=
 begin
-  sorry,
+  intro h,
+  intro x,
+  split,
+  --Parte P x:
+    exact h.1 x,
+  --Parte Q x:
+    exact h.2 x,
 end
 
 
 theorem forall_disj_as_disj_forall_converse :
   (∀x, P x) ∨ (∀x, Q x) → (∀x, P x ∨ Q x)  :=
 begin
-  sorry,
+  intro hor,
+  intro x,
+  cases hor with hp hq,
+  --Parte hp:
+    left,
+    exact hp x,
+  --Parte hq:
+    right,
+    exact hq x,
 end
 
 
