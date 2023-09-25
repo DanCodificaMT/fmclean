@@ -150,17 +150,13 @@ end
 theorem lem_irrefutable :
   ¬¬(P∨¬P)  :=
 begin
-  intro h,
-  have hor : P ∨ ¬P,
-  by_cases hp : P,
-  --Caso P:
-    left,
-    exact hp,
-  --Caso ¬P:
-    right,
-    exact hp,
-  apply h,
-  exact hor,
+  intro hf,
+  apply hf,
+  right,
+  intro hp,
+  apply hf,
+  left,
+  exact hp,
 end
 
 
@@ -552,7 +548,14 @@ end
 theorem demorgan_forall :
   ¬(∀x, P x) → (∃x, ¬P x)  :=
 begin
-  sorry,
+  intro hf,
+  by_contra hef,
+  apply hf,
+  intro x,
+  by_contra hxf,
+  apply hef,
+  existsi x,
+  exact hxf,
 end
 
 theorem demorgan_forall_converse :
@@ -614,7 +617,7 @@ theorem forall_as_neg_exists_converse :
 begin
   intro hef,
   intro x,
-  by_contradiction hxf,
+  by_contra hxf,
   apply hef,
   existsi x,
   exact hxf,
@@ -623,7 +626,11 @@ end
 theorem exists_as_neg_forall_converse :
   ¬(∀x, ¬P x) → (∃x, P x)  :=
 begin
-  sorry,
+  intro hf,
+  by_contra hef,
+  apply hf,
+  apply demorgan_exists,
+  exact hef,
 end
 
 theorem forall_as_neg_exists_law :
